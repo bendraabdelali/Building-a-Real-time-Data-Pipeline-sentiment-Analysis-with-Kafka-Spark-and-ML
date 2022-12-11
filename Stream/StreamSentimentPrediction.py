@@ -23,7 +23,9 @@ df = df\
         .select(from_json(col("value"),orders_schema)\
         .alias("Sentiment"))      
 
-df = orders_df2.select("Sentiment.*")   
+df = orders_df2.select("Sentiment.*") 
+
+df = df.select("SentimentText")
 
 # Load a pipeline model
 model = PipelineModel.load('../ML/SentimentAnalysis')
