@@ -1,0 +1,39 @@
+version: "3"
+services:
+  # ----------------- #
+  # Apache Kafka      #
+  # ----------------- #    
+  zookeeper:
+    image: 'bitnami/zookeeper:3.7'
+    container_name: 'zookeeper'
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+     
+  kafka:
+    image: 'bitnami/kafka:3'
+    container_name: 'kafka'
+    ports:
+      - '9092:9092'
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - auto.create.topics.enable=true
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_TOPICS="TopicA:1:1"
+    depends_on:
+      - zookeeper
+  
+  notebook:
+    image: "andreper/jupyterlab:3.0.0-spark-3.0.0"
+    ports:
+      - 8888:8888
+    volumes:
+      - ./ML:/opt/workspace
+  
+  
+
+    
