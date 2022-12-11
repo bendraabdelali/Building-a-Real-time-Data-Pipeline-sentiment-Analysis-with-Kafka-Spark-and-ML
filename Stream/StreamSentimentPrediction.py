@@ -23,7 +23,7 @@ df = df\
         .select(from_json(col("value"),orders_schema)\
         .alias("Sentiment"))      
 
-df = orders_df2.select("Sentiment.*") 
+df = df.select("Sentiment.*") 
 
 df = df.select("SentimentText")
 
