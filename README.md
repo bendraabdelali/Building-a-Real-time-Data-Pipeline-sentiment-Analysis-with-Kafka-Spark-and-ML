@@ -1,6 +1,6 @@
 # Real-Time Sentiment Analysis Using Kafka and Spark Streaming
 <p align="center">
-  <img src="Docs/ProjectPicture.jpg" />
+  <img src="Docs/ProjectPicture.png" />
 </p>
 The project involves creating a sentiment analysis model using Spark MLlib, a machine learning library for the Apache Spark framework. The model will be trained on a dataset of user comments and their associated sentiments, such as positive or negative. The model will be able to predict the sentiment of new comments as they are ingested in real time by Kafka, a popular open-source streaming platform.
 
