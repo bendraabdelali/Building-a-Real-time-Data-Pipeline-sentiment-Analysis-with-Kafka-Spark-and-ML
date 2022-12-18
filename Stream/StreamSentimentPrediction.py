@@ -31,23 +31,19 @@ schema = "SentimentText STRING"
 
 df = df\
      .select(from_csv(col("value"),schema)\
-     .alias("Sentiment"))      
-df.printSchema()
-
-df = df.select("Sentiment.*") 
-df.printSchema()
+     .alias("Sentiment"))\
+     .select("Sentiment.*") 
 
 df = df.select("SentimentText")
-df.printSchema()
+
 # Load a pipeline model
 model = PipelineModel.load('SentimentAnalysis')
-
 # Use the model to make predictions on streaming data
 predictions = model.transform(df)
-predictions.printSchema()
+
 predictionFinal =  predictions.select(
-                                "SentimentText", "prediction")
-predictionFinal.printSchema()
+                                "SentimentText", "prediction"
+                                )
 predictionFinal.writeStream.format('console').outputMode('append').start().awaitTermination()
 
 # predictionFinal.selectExpr("CAST(value AS STRING)") \
